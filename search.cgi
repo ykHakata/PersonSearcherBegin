@@ -8,6 +8,7 @@ use FindBin;
 use File::Spec;
 
 binmode STDOUT, ':encoding(utf-8)';
+binmode STDIN,  ':encoding(utf-8)';
 
 my $q = CGI->new;
 
