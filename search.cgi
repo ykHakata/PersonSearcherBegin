@@ -12,6 +12,8 @@ binmode STDIN,  ':encoding(utf-8)';
 
 my $q = CGI->new;
 
+print $q->header( -type => 'text/html', -charset => 'utf-8' );
+
 my $sei = $q->param('sei') || '';
 my $mei = $q->param('mei') || '';
 
@@ -55,8 +57,6 @@ for my $name ( @{$last_names} ) {
 }
 
 my $html = <<"END_HTML";
-Content-Type: text/html; charset=utf-8
-
 <!DOCTYPE html>
 <html lang="ja">
 
