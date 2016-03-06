@@ -1,0 +1,180 @@
+@charset "utf-8";
+
+/*========初期値の設定========*/
+h1,h2,h3,h4,h5,h6,p,table,th,td,div,ul,ol,li,fieldset,legend
+{
+	margin: 0px;
+	padding: 0px;
+}
+/*========ページ構造の指定========*/
+body
+{
+	margin: 0px;
+	padding: 0px;
+}
+#container
+{
+	width: 640px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+#header_a
+{
+	height:60px;
+}
+#navi_a
+{
+	width: 560px;
+	height:80px;
+	float: left;
+}
+#navi_a_a
+{
+	float: left;
+	width: 280px;
+	height:80px;
+}
+#navi_a_b
+{
+	float: right;
+	width: 280px;
+	height:80px;
+}
+#navi_b
+{
+	float: right;
+	width: 80px;
+	height:80px;
+}
+#header_b
+{
+	clear: both;
+	height:100px;
+}
+#content_l
+{
+	float: left;
+	width: 320px;
+	height: 472px;
+}
+#content_l_fi
+{
+}
+#content_l_p
+{
+	width: 315px;
+	height: 415px;
+	overflow: auto;
+}
+#content_r
+{
+	float: right;
+	width: 320px;
+	height: 472px;
+}
+#content_r_fi
+{
+}
+#content_r_p
+{
+	width: 315px;
+	height: 415px;
+	overflow: auto;
+}
+	
+/*========コンテンツのテキスト指定========*/	
+body
+{
+	font-family: sans-serif;
+	color: white;
+}
+input
+{
+	font-size: 100%;
+}
+#header_a_t
+{
+	font-size:200%;
+	text-align:center;
+	position: relative;
+	top: 5px;
+}
+#navi_a_a_sei
+{
+	font-size:170%;
+	text-align:right;
+	position: relative;
+	top: 5px;
+	left: -2px;
+}
+#navi_a_b_mei
+{
+	font-size:170%;
+	text-align:right;
+	position: relative;
+	top: 5px;
+	left: -2px;
+}
+#header_b_t
+{
+	font-size:380%;
+	text-align:center;
+	position: relative;
+	top: 2px;
+}
+#content_l_le
+{
+	text-align:center;
+	font-size:220%;
+}
+#content_l_p
+{
+	font-size:190%;
+}
+#content_r_le
+{
+	text-align:center;
+	font-size:220%;
+}
+#content_r_p
+{
+	font-size:190%;
+}
+
+
+/*========パーツの指定========*/	
+body
+{
+	background-color: black;
+}
+#container
+{
+	background-color: black;
+}
+#header_a
+{
+	background-image: url(img/gura.png);
+}
+#navi_a
+{
+	background-image: url(img/gura_80.png);
+}
+#navi_b
+{
+	text-align:center;
+	background-image: url(img/gura_80.png);
+}
+#header_b
+{
+	background-image: url(img/gura_100.png);
+}
+#content_l
+{
+	background-image: url(img/gura_472.png);
+}
+#content_r
+{
+	background-image: url(img/gura_472.png);
+}
