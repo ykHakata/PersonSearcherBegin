@@ -1,3 +1,17 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use utf8;
+use CGI;
+
+binmode STDOUT, ':encoding(utf-8)';
+
+my $q = CGI->new;
+
+my $sei = '';
+my $mei = '';
+
+my $html = <<"END_HTML";
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -127,3 +141,8 @@
 </body>
 
 </html>
+END_HTML
+
+print $html;
+
+__END__

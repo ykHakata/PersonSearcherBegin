@@ -12,3 +12,26 @@
     2013-06-24 レンタルサーバー解約
 
     2016-03-06 remaster 開始
+
+# DEPLOYMENT
+
+レンタルサーバーへ接続
+
+```bash
+# 鍵認証による接続
+$ ssh yonabemt@yonabemt.sakura.ne.jp
+```
+
+レンタルサーバーでのサイトの更新
+
+```sh
+# さくらのレンタルサーバーは csh
+% pwd
+/home/yonabemt/www/PersonSearcherBegin
+
+# (リポジトリを最新の状態に)
+% git fetch
+
+# (ローカルと同じ状態)
+% git pull origin master
+```
