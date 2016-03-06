@@ -6,6 +6,8 @@ use CGI;
 use DBI;
 use FindBin;
 use File::Spec;
+use URI::Escape;
+use Encode;
 
 binmode STDOUT, ':encoding(utf-8)';
 binmode STDIN,  ':encoding(utf-8)';
@@ -16,6 +18,16 @@ print $q->header( -type => 'text/html', -charset => 'utf-8' );
 
 my $sei = $q->param('sei') || '';
 my $mei = $q->param('mei') || '';
+
+if ($sei) {
+    $sei = uri_unescape($sei);
+    $sei = Encode::decode( 'utf-8', $sei );
+}
+
+if ($mei) {
+    $mei = uri_unescape($mei);
+    $mei = Encode::decode( 'utf-8', $mei );
+}
 
 my $db = File::Spec->catfile( $FindBin::Bin, 'db', 'persons_name.db' );
 
