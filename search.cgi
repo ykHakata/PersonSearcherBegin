@@ -12,6 +12,8 @@ my $sei = '';
 my $mei = '';
 
 my $html = <<"END_HTML";
+Content-Type: text/html; charset=utf-8
+
 <!DOCTYPE html>
 <html lang="ja">
 
