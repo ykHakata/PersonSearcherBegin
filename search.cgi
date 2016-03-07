@@ -14,24 +14,22 @@ binmode STDIN,  ':encoding(utf-8)';
 
 my $q = CGI->new;
 
-print $q->header( -type => 'text/html', -charset => 'utf-8' );
+my $last_name  = $q->param('last_name')  || '';
+my $first_name = $q->param('first_name') || '';
 
-my $sei = $q->param('sei') || '';
-my $mei = $q->param('mei') || '';
-
-if ($sei) {
-    $sei = uri_unescape($sei);
-    $sei = Encode::decode( 'utf-8', $sei );
+if ($last_name) {
+    $last_name = uri_unescape($last_name);
+    $last_name = Encode::decode( 'utf-8', $last_name );
 }
 
-if ($mei) {
-    $mei = uri_unescape($mei);
-    $mei = Encode::decode( 'utf-8', $mei );
+if ($first_name) {
+    $first_name = uri_unescape($first_name);
+    $first_name = Encode::decode( 'utf-8', $first_name );
 }
 
-my $db = File::Spec->catfile( $FindBin::Bin, 'db', 'persons_name.db' );
+my $db_file = File::Spec->catfile( $FindBin::Bin, 'db', 'persons_name.db' );
 
-my $data_source = 'dbi:SQLite:' . $db;
+my $data_source = 'dbi:SQLite:' . $db_file;
 my $username    = '';
 my $auth        = '';
 my $attr        = +{
@@ -42,33 +40,35 @@ my $attr        = +{
 
 my $dbh = DBI->connect( $data_source, $username, $auth, $attr );
 
-my $sql         = q{SELECT * FROM first_name WHERE name = ? OR ruby = ?};
-my $attr        = +{ Slice => +{}, };
-my @bind_values = ( $mei, $mei );
+my $last_names = $dbh->selectall_arrayref(
+    q{SELECT * FROM last_name WHERE name = ? OR ruby = ?},
+    +{ Slice => +{}, },
+    $last_name, $last_name,
+);
 
-my $first_names = $dbh->selectall_arrayref( $sql, $attr, @bind_values );
-
-$sql         = q{SELECT * FROM last_name WHERE name = ? OR ruby = ?};
-$attr        = +{ Slice => +{}, };
-@bind_values = ( $sei, $sei );
-
-my $last_names = $dbh->selectall_arrayref( $sql, $attr, @bind_values );
-
-my $result_first_name;
-
-for my $name ( @{$first_names} ) {
-    $result_first_name
-        .= $name->{ruby} . ' ' . $name->{name} . '<br>' . "\n          ";
-}
+my $first_names = $dbh->selectall_arrayref(
+    q{SELECT * FROM first_name WHERE name = ? OR ruby = ?},
+    +{ Slice => +{}, },
+    $first_name, $first_name,
+);
 
 my $result_last_name;
 
 for my $name ( @{$last_names} ) {
     $result_last_name
-        .= $name->{ruby} . ' ' . $name->{name} . '<br>' . "\n          ";
+        .= $name->{ruby} . '&emsp;' . $name->{name} . '<br>' . "\n          ";
+}
+
+my $result_first_name;
+
+for my $name ( @{$first_names} ) {
+    $result_first_name
+        .= $name->{ruby} . '&emsp;' . $name->{name} . '<br>' . "\n          ";
 }
 
 my $html = <<"END_HTML";
+Content-Type: text/html; charset=utf-8
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -87,17 +87,17 @@ my $html = <<"END_HTML";
     <form action="search.cgi" method="post">
       <div id="navi_a">
         <div id="navi_a_a">
-          <h1 id="navi_a_a_sei">姓<input type="text" name="sei" value="$sei" style="width: 210px; height: 56px;" size="10"></h1>
+          <h1 id="navi_a_a_sei">姓<input type="text" name="last_name" value="$last_name" style="width: 210px; height: 56px;" size="10"></h1>
         </div>
         <div id="navi_a_b">
-          <h1 id="navi_a_b_mei">名<input type="text" name="mei" value="$mei" style="width: 210px; height: 56px;" size="10"></h1>
+          <h1 id="navi_a_b_mei">名<input type="text" name="first_name" value="$first_name" style="width: 210px; height: 56px;" size="10"></h1>
         </div>
       </div>
       <div id="navi_b">
         <input type="image" width="80" heigth="80" src="img/botan_2.png" alt="検索する">
       </div>
       <div id="header_b">
-        <h1 id="header_b_t">佐籐　祐之</h1>
+        <h1 id="header_b_t">$last_name&emsp;$first_name</h1>
       </div>
       <div id="content_l">
         <fieldset id="content_l_fi">
