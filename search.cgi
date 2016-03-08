@@ -52,14 +52,14 @@ my $first_names = $dbh->selectall_arrayref(
     $first_name, $first_name,
 );
 
-my $result_last_name;
+my $result_last_name = '';
 
 for my $name ( @{$last_names} ) {
     $result_last_name
         .= $name->{ruby} . '&emsp;' . $name->{name} . '<br>' . "\n          ";
 }
 
-my $result_first_name;
+my $result_first_name = '';
 
 for my $name ( @{$first_names} ) {
     $result_first_name
