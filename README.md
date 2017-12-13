@@ -1,52 +1,45 @@
 # NAME
 
-    PersonSearcherBegin - 日本語の名前を検索する WEB アプリケーション
+PersonSearcherBegin - 日本語の名前を検索する WEB アプリケーション
 
-# URL
+# SYNOPSIS
 
-    開発初期の見本、静的なページ
-    http://yonabemt.sakura.ne.jp/PersonSearcherBegin/index.html
+## URL
 
-    アプリケーション
-    http://yonabemt.sakura.ne.jp/PersonSearcherBegin/search.cgi
-
-    アプリケーション初期化
-    http://yonabemt.sakura.ne.jp/PersonSearcherBegin/init.cgi
+- <http://becom.sakura.ne.jp/PersonSearcherBegin/index.html> -開発初期の見本、静的なページ
+- <http://becom.sakura.ne.jp/PersonSearcherBegin/search.cgi> -アプリケーション
+- <http://becom.sakura.ne.jp/PersonSearcherBegin/init.cgi> -アプリケーション初期化
 
 # HISTORY
 
-    2012-08
-    人名を検索する WEB アプリケーションの開発を開始
-    レンタルサーバー: EX-CLOUD livedoor
-    CGI.pm を活用、データベースは Mysql
-    人名のデーターは 「人名検索くん」サイトから
-    サンプルデータダウンロードして利用したが、
-    現在このサイトはアクセス出来ない
-    http://mobile.shinsv.dyndns.org/jinmei/
+```
+2012-08
+人名を検索する WEB アプリケーションの開発を開始
+レンタルサーバー: EX-CLOUD livedoor
+CGI.pm を活用、データベースは Mysql
+人名のデーターは 「人名検索くん」サイトから
+サンプルデータダウンロードして利用したが、
+現在このサイトはアクセス出来ない
+http://mobile.shinsv.dyndns.org/jinmei/
 
-    2013-06-24 レンタルサーバー解約
+2013-06-24 レンタルサーバー解約
 
-    2016-03-06 remaster 開始
+2016-03-06 remaster
+```
 
 # DEPLOYMENT
 
-レンタルサーバーへ接続
-
-```bash
-# 鍵認証による接続
-$ ssh yonabemt@yonabemt.sakura.ne.jp
 ```
+(鍵認証による接続)
+$ ssh becom@becom.sakura.ne.jp
 
-レンタルサーバーでのサイトの更新
-
-```sh
-# さくらのレンタルサーバーは csh
+(さくらのレンタルサーバーは csh)
 % pwd
-/home/yonabemt/www/PersonSearcherBegin
+/home/becom/www/PersonSearcherBegin
 
-# (リポジトリを最新の状態に)
+(リポジトリを最新の状態に)
 % git fetch
 
-# (ローカルと同じ状態)
+(ローカルと同じ状態)
 % git pull origin master
 ```
