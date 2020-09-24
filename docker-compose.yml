@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  app:
+    container_name: ctr_perl5_14_4
+    build:
+      context: .
+    image: perl5_14_4:carton
+    volumes:
+      - .:/usr/src/app
+    stdin_open: true
+    tty: true

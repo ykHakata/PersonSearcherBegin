@@ -84,7 +84,7 @@ Content-Type: text/html; charset=utf-8
     <div id="header_a">
       <h1 id="header_a_t">人名検索</h1>
     </div>
-    <form action="search.cgi" method="post">
+    <form action="" method="post">
       <div id="navi_a">
         <div id="navi_a_a">
           <h1 id="navi_a_a_sei">姓<input type="text" name="last_name" value="$last_name" style="width: 210px; height: 56px;" size="10"></h1>
