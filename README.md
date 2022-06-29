@@ -26,46 +26,91 @@ http://mobile.shinsv.dyndns.org/jinmei/
 2013-06-24 レンタルサーバー解約
 2016-03-06 remaster
 2020-09-24 レンタルサーバー公開のための調整など
+2022-06-29 レンタルサーバー環境変更のため若干の修正
+```
+
+## Setup
+
+事前に`plenv`を使えるようにしておき指定バージョンのPerlを使えるように
+
+git clone にてソースコードを配置後プロジェクト配下にてモジュールをインストール
+
+```zsh
+./cpanm -l ./local --installdeps .
+```
+
+## Work
+
+ローカル開発時の起動方法など
+
+cgi ファイルを起動の場合
+
+```zsh
+python3 -m http.server 3000 --cgi
+```
+
+リクエスト
+
+```zsh
+curl 'http://localhost:3000/cgi-bin/index.cgi'
+```
+
+詳細は[doc/](doc/)を参照
+
+公開環境へ公開
+
+```sh
+ssh becom2022@becom2022.sakura.ne.jp
+cd ~/www/PersonSearcherBegin
+git fetch && git checkout master && git pull
+```
+
+### Environment
+
+初動時の環境構築に関するメモ
+
+ignore
+
+```zsh
+echo 'local' > .gitignore
+echo 'db' >> .gitignore
+echo '.DS_Store' >> .gitignore
+```
+
+Perl
+
+```zsh
+echo '5.32.1' > .perl-version
+echo "requires 'CGI';" > cpanfile
+echo "requires 'URI';" >> cpanfile
+echo "requires 'DBD::SQLite';" >> cpanfile
+```
+
+Module
+
+```zsh
+curl -L https://cpanmin.us/ -o cpanm
+chmod +x cpanm
+./cpanm -l ./local --installdeps .
+```
+
+公開環境
+
+```sh
+ssh becom2022@becom2022.sakura.ne.jp
+cd ~/www/
+git clone git@github.com:ykHakata/PersonSearcherBegin.git
+cd ~/www/PersonSearcherBegin
+# sakuraが提供しているモージュールだけで動くのでcpanmは実行しない
 ```
 
 ## DEPLOYMENT
 
-```console
-(鍵認証による接続)
-$ ssh becom@becom.sakura.ne.jp
-
-(さくらのレンタルサーバーは csh)
-% pwd
-/home/becom/www/PersonSearcherBegin
-
-(リポジトリを最新の状態に)
-% git fetch
-
-(ローカルと同じ状態)
-% git pull origin master
-```
-
-## DOCKER
-
-```console
-(イメージ作成からコンテナ、バックグラウンド起動まで)
-$ docker-compose up --build -d
-
-(作ったコンテナで作業)
-$ docker-compose exec app /bin/bash
-
-(コンテナに入り、初動のときはモジュールをインストール)
-# carton install
-
-(コンテナの中でテストコード実行)
-# carton exec -- perl search.t
-
-(コンテナ終了)
-# exit
-
-(コンテナのバックグラウンド終了)
-$ docker-compose stop
-
-(次回からの実行)
-$ docker-compose start
+```sh
+# ローカル環境より接続
+ssh becom2022@becom2022.sakura.ne.jp
+# sakuraのレンタルサーバーにて
+cd ~/www/PersonSearcherBegin
+git fetch
+git pull origin master
 ```
