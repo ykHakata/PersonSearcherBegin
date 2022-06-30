@@ -6,10 +6,10 @@ PersonSearcherBegin - 日本語の名前を検索する WEB アプリケーシ�
 
 ### URL
 
-- <http://becom.sakura.ne.jp/PersonSearcherBegin/sample.html> -開発初期の見本、静的なページ
-- <http://becom.sakura.ne.jp/PersonSearcherBegin/index.cgi> -アプリケーション
-- <http://becom.sakura.ne.jp/PersonSearcherBegin/init.cgi> -アプリケーション初期化
-- <https://psb.becom.co.jp/> - 独自ドメインでのアプリケーション実行
+- <https://psb.becom.co.jp/> - アプリケーション
+- <https://psb.becom.co.jp/index.cgi> -アプリケーションcgiファイルを指定して
+- <https://psb.becom.co.jp/init.cgi> -アプリケーション初期化
+- <https://psb.becom.co.jp/sample.html> -開発初期の見本、静的なページ
 
 ## HISTORY
 
@@ -26,7 +26,7 @@ http://mobile.shinsv.dyndns.org/jinmei/
 2013-06-24 レンタルサーバー解約
 2016-03-06 remaster
 2020-09-24 レンタルサーバー公開のための調整など
-2022-06-29 レンタルサーバー環境変更のため若干の修正
+2022-06-30 レンタルサーバー環境変更のため若干の修正
 ```
 
 ## Setup
@@ -54,8 +54,6 @@ python3 -m http.server 3000 --cgi
 ```zsh
 curl 'http://localhost:3000/cgi-bin/index.cgi'
 ```
-
-詳細は[doc/](doc/)を参照
 
 公開環境へ公開
 
@@ -100,17 +98,5 @@ chmod +x cpanm
 ssh becom2022@becom2022.sakura.ne.jp
 cd ~/www/
 git clone git@github.com:ykHakata/PersonSearcherBegin.git
-cd ~/www/PersonSearcherBegin
 # sakuraが提供しているモージュールだけで動くのでcpanmは実行しない
-```
-
-## DEPLOYMENT
-
-```sh
-# ローカル環境より接続
-ssh becom2022@becom2022.sakura.ne.jp
-# sakuraのレンタルサーバーにて
-cd ~/www/PersonSearcherBegin
-git fetch
-git pull origin master
 ```
