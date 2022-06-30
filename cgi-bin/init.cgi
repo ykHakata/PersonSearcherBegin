@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 use 5.014;
 use strict;
 use warnings;
@@ -14,7 +14,7 @@ binmode STDOUT, ':encoding(utf-8)';
 my $tp_obj = localtime;
 my $time_stamp = $tp_obj->datetime( 'T' => ' ' );
 
-my $dir_db = File::Spec->catfile( $FindBin::Bin, 'db' );
+my $dir_db = File::Spec->catfile( $FindBin::Bin, '../db' );
 
 my $last_name = File::Temp->new(
     DIR    => $dir_db,
@@ -27,7 +27,7 @@ my $first_name = File::Temp->new(
 );
 
 my $db     = File::Spec->catfile( $dir_db,       'persons_name.db' );
-my $schema = File::Spec->catfile( $FindBin::Bin, 'persons_name.sql' );
+my $schema = File::Spec->catfile( $FindBin::Bin, '../persons_name.sql' );
 my $data   = File::Spec->catfile( $dir_db,       'ime-import.txt' );
 
 # スキーマー読み込み初期化
