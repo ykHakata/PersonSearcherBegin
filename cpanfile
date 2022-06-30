@@ -1,2 +1,3 @@
-requires 'DBD::SQLite', '1.50';
-requires 'URI', '1.71';
+requires 'CGI';
+requires 'URI';
+requires 'DBD::SQLite';

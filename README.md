@@ -6,10 +6,10 @@ PersonSearcherBegin - 日本語の名前を検索する WEB アプリケーシ�
 
 ### URL
 
-- <http://becom.sakura.ne.jp/PersonSearcherBegin/sample.html> -開発初期の見本、静的なページ
-- <http://becom.sakura.ne.jp/PersonSearcherBegin/index.cgi> -アプリケーション
-- <http://becom.sakura.ne.jp/PersonSearcherBegin/init.cgi> -アプリケーション初期化
-- <https://psb.becom.co.jp/> - 独自ドメインでのアプリケーション実行
+- <https://psb.becom.co.jp/> - アプリケーション
+- <https://psb.becom.co.jp/index.cgi> -アプリケーションcgiファイルを指定して
+- <https://psb.becom.co.jp/init.cgi> -アプリケーション初期化
+- <https://psb.becom.co.jp/sample.html> -開発初期の見本、静的なページ
 
 ## HISTORY
 
@@ -26,46 +26,77 @@ http://mobile.shinsv.dyndns.org/jinmei/
 2013-06-24 レンタルサーバー解約
 2016-03-06 remaster
 2020-09-24 レンタルサーバー公開のための調整など
+2022-06-30 レンタルサーバー環境変更のため若干の修正
 ```
 
-## DEPLOYMENT
+## Setup
 
-```console
-(鍵認証による接続)
-$ ssh becom@becom.sakura.ne.jp
+事前に`plenv`を使えるようにしておき指定バージョンのPerlを使えるように
 
-(さくらのレンタルサーバーは csh)
-% pwd
-/home/becom/www/PersonSearcherBegin
+git clone にてソースコードを配置後プロジェクト配下にてモジュールをインストール
 
-(リポジトリを最新の状態に)
-% git fetch
-
-(ローカルと同じ状態)
-% git pull origin master
+```zsh
+./cpanm -l ./local --installdeps .
 ```
 
-## DOCKER
+## Work
 
-```console
-(イメージ作成からコンテナ、バックグラウンド起動まで)
-$ docker-compose up --build -d
+ローカル開発時の起動方法など
 
-(作ったコンテナで作業)
-$ docker-compose exec app /bin/bash
+cgi ファイルを起動の場合
 
-(コンテナに入り、初動のときはモジュールをインストール)
-# carton install
+```zsh
+python3 -m http.server 3000 --cgi
+```
 
-(コンテナの中でテストコード実行)
-# carton exec -- perl search.t
+リクエスト
 
-(コンテナ終了)
-# exit
+```zsh
+curl 'http://localhost:3000/cgi-bin/index.cgi'
+```
 
-(コンテナのバックグラウンド終了)
-$ docker-compose stop
+公開環境へ公開
 
-(次回からの実行)
-$ docker-compose start
+```sh
+ssh becom2022@becom2022.sakura.ne.jp
+cd ~/www/PersonSearcherBegin
+git fetch && git checkout master && git pull
+```
+
+### Environment
+
+初動時の環境構築に関するメモ
+
+ignore
+
+```zsh
+echo 'local' > .gitignore
+echo 'db' >> .gitignore
+echo '.DS_Store' >> .gitignore
+```
+
+Perl
+
+```zsh
+echo '5.32.1' > .perl-version
+echo "requires 'CGI';" > cpanfile
+echo "requires 'URI';" >> cpanfile
+echo "requires 'DBD::SQLite';" >> cpanfile
+```
+
+Module
+
+```zsh
+curl -L https://cpanmin.us/ -o cpanm
+chmod +x cpanm
+./cpanm -l ./local --installdeps .
+```
+
+公開環境
+
+```sh
+ssh becom2022@becom2022.sakura.ne.jp
+cd ~/www/
+git clone git@github.com:ykHakata/PersonSearcherBegin.git
+# sakuraが提供しているモージュールだけで動くのでcpanmは実行しない
 ```
