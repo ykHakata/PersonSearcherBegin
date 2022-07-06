@@ -1,3 +1,5 @@
 local
 db
 .DS_Store
+cgi-bin/index.cgi
+cgi-bin/init.cgi

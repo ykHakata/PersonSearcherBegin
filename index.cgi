@@ -3,10 +3,9 @@ use strict;
 use warnings;
 use utf8;
 use FindBin;
-use lib ("$FindBin::RealBin/../local/lib/perl5");
+use lib ("$FindBin::RealBin/local/lib/perl5");
 use CGI;
 use DBI;
-use FindBin;
 use File::Spec;
 use URI::Escape;
 use Encode;
@@ -29,7 +28,7 @@ if ($first_name) {
     $first_name = Encode::decode( 'utf-8', $first_name );
 }
 
-my $db_file = File::Spec->catfile( $FindBin::Bin, '../db', 'persons_name.db' );
+my $db_file = File::Spec->catfile( $FindBin::RealBin, 'db', 'persons_name.db' );
 
 my $data_source = 'dbi:SQLite:' . $db_file;
 my $username    = '';
@@ -77,7 +76,7 @@ Content-Type: text/html; charset=utf-8
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=640">
-  <link rel="stylesheet" type="text/css" href="../style.css">
+  <link rel="stylesheet" type="text/css" href="/style.css">
   <title>人名検索</title>
 </head>
 
@@ -96,7 +95,7 @@ Content-Type: text/html; charset=utf-8
         </div>
       </div>
       <div id="navi_b">
-        <input type="image" width="80" heigth="80" src="../img/botan_2.png" alt="検索する">
+        <input type="image" width="80" heigth="80" src="/img/botan_2.png" alt="検索する">
       </div>
       <div id="header_b">
         <h1 id="header_b_t">$last_name&emsp;$first_name</h1>

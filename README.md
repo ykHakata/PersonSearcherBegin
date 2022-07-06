@@ -43,6 +43,14 @@ git clone にてソースコードを配置後プロジェクト配下にてモ�
 
 ローカル開発時の起動方法など
 
+事前にローカル環境での確認用に`cgi-bin`配下にシンボリックリンクを作成
+
+```zsh
+# example配下にソースコードがある場合
+ln -s ~/example/init.cgi ~/example/cgi-bin/init.cgi
+ln -s ~/example/index.cgi ~/example/cgi-bin/index.cgi
+```
+
 cgi ファイルを起動の場合
 
 ```zsh

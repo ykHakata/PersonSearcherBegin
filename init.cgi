@@ -11,10 +11,10 @@ use File::Temp;
 
 binmode STDOUT, ':encoding(utf-8)';
 
-my $tp_obj = localtime;
+my $tp_obj     = localtime;
 my $time_stamp = $tp_obj->datetime( 'T' => ' ' );
 
-my $dir_db = File::Spec->catfile( $FindBin::Bin, '../db' );
+my $dir_db = File::Spec->catfile( $FindBin::RealBin, 'db' );
 
 my $last_name = File::Temp->new(
     DIR    => $dir_db,
@@ -26,23 +26,23 @@ my $first_name = File::Temp->new(
     SUFFIX => '.txt',
 );
 
-my $db     = File::Spec->catfile( $dir_db,       'persons_name.db' );
-my $schema = File::Spec->catfile( $FindBin::Bin, '../persons_name.sql' );
-my $data   = File::Spec->catfile( $dir_db,       'ime-import.txt' );
+my $db     = File::Spec->catfile( $dir_db,           'persons_name.db' );
+my $schema = File::Spec->catfile( $FindBin::RealBin, 'persons_name.sql' );
+my $data   = File::Spec->catfile( $dir_db,           'ime-import.txt' );
 
 # スキーマー読み込み初期化
 my $cmd = "sqlite3 $db <$schema";
 system $cmd
-    and croak "Couldn'n run: $cmd ($!)";
+  and croak "Couldn'n run: $cmd ($!)";
 
 open my $fh, '<:encoding(utf8)', $data
-    or croak "Can't open '$data': $!";
+  or croak "Can't open '$data': $!";
 
 open my $fh_last_name, '>>:encoding(utf8)', $last_name
-    or croak "Can't open '$last_name': $!";
+  or croak "Can't open '$last_name': $!";
 
 open my $fh_first_name, '>>:encoding(utf8)', $first_name
-    or croak "Can't open '$first_name': $!";
+  or croak "Can't open '$first_name': $!";
 
 my $last_id    = 0;
 my $first_id   = 0;
@@ -54,17 +54,17 @@ while ( my $row = <$fh> ) {
     if ( $type && $type eq '姓' ) {
         $last_id += 1;
         my $text_row = join ',',
-            ( $last_id, $name, $ruby, $time_stamp, $time_stamp );
+          ( $last_id, $name, $ruby, $time_stamp, $time_stamp );
         $fh_last_name->say($text_row);
     }
     elsif ( $type && $type eq '名' ) {
         $first_id += 1;
         my $text_row = join ',',
-            ( $first_id, $name, $ruby, $time_stamp, $time_stamp );
+          ( $first_id, $name, $ruby, $time_stamp, $time_stamp );
         $fh_first_name->say($text_row);
     }
     else {
-        $not_import .= '<p>' . $row . '</p>'."\n  ";
+        $not_import .= '<p>' . $row . '</p>' . "\n  ";
     }
 }
 
@@ -79,7 +79,7 @@ while ( my ( $table, $file, ) = each %{$import_data} ) {
     next IMPORT_ACTION if !$file;
     $cmd = qq{sqlite3 -separator , $db '.import $file $table'};
     system $cmd
-        and croak "Couldn'n run: $cmd ($!)";
+      and croak "Couldn'n run: $cmd ($!)";
 }
 
 my $html = <<"END_HTML";
