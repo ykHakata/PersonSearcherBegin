@@ -14,9 +14,6 @@ binmode STDOUT, ':encoding(utf-8)';
 binmode STDIN,  ':encoding(utf-8)';
 
 my $q = CGI->new;
-warn Dumper($q);
-
-warn Dumper($ENV);
 
 my $last_name  = $q->param('last_name')  || '';
 my $first_name = $q->param('first_name') || '';
