@@ -9,7 +9,7 @@ use DBI;
 use File::Spec;
 use URI::Escape;
 use Encode;
-use Data::Dumper;
+
 binmode STDOUT, ':encoding(utf-8)';
 binmode STDIN,  ':encoding(utf-8)';
 
